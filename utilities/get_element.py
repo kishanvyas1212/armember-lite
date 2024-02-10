@@ -44,7 +44,9 @@ class get_element:
             pass
         return 
     def wait_for_element_display(driver, locator, timeout=10):
-        return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.CLASS_NAME,locator)))
+        elemenrt = WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.CLASS_NAME,locator)))
+        
+        return elemenrt.text 
         # print(locator)
         # return drivers.find_elements(By.CLASS_NAME,locator)
     # locator = (By.XPATH,"test") pass the locator in this way for wait for element 

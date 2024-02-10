@@ -1,16 +1,8 @@
-import features
-from webdriver_manager.chrome import ChromeDriverManager
 import time
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium import webdriver #by this we can access the webdriver which is inbuild method of selenium
 from selenium.webdriver.chrome.service import Service   #This is selenium 4 new feature in which we import service 
-# from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from utilities.get_element import get_element as ge
 from features.payment_gateway import payment_gateways as pw
-
 from selenium.webdriver.common.by import By
 # test
 def driver_initlise():
@@ -26,8 +18,10 @@ def driver_initlise():
               
 class login():
     
-    def login_with_wordpress(data, drivers,url):
-        drivers.get(url + data["end_point"])
+    def login_with_wordpress(drivers,data,url):
+        login_url = url + data["end_point"]
+        print(login_url)
+        drivers.get(login_url)
         usernamef = ge.findelement(drivers,"ID","user_login","send_keys",data["username"])
         pwd = ge.findelement(drivers,"ID","user_pass","send_keys",data["password"])
         beforelogin = drivers.get_cookies()
@@ -35,18 +29,20 @@ class login():
         usercookies = drivers.get_cookies()
         drivers.delete_all_cookies()
         return usercookies
-    def login_with_armember(data,drivers,url):
+    def login_with_armember(drivers,data,url):
+        # login_url = 
+        print(url)
         drivers.get(url + data["end_point"])
         usernamef = ge.findelement(drivers,"NAME","user_login","send_keys",data["username"]) 
         pwd = ge.findelement(drivers,"NAME","user_pass","send_keys",data["password"])   
         beforelogin = drivers.get_cookies()
         login = ge.findelement(drivers,"NAME","armFormSubmitBtn","click")
         time.sleep(2)
-        drivers.refresh()
+        # drivers.refresh() #commented this because later want to validate user so if refresh then error message will disappear so increase wait to avoid issue
         time.sleep(2)
         usercookies = drivers.get_cookies()
-        print(usercookies)
-        print(len(usercookies))
+        # print(usercookies)
+        # print(len(usercookies))
         return usercookies
     
 class setup:
@@ -136,7 +132,7 @@ class setup:
     
 
 class validate:
-    def verifyuser(cookie_list,data, drivers):
+    def verifyuser(drivers,cookie_list,data):
         if len(cookie_list) > 1:
             desired_name = "wordpress_logged_in_d0ae86309cda26b347aa32d9ce217696"
             cookie_value = next((cookie for cookie in cookie_list if desired_name in cookie['name'] ), None) 
@@ -147,9 +143,12 @@ class validate:
                 print(data["username"])
                 print(cookie_value)
         else:
-            error = ge.wait_for_element_display(drivers,(By.CLASS_NAME,"arm-df__fc--validation__wrap"))
+            error = ge.wait_for_element_display(drivers,"arm-df__fc--validation__wrap",20)
             print("test case is passed ")
+            
             print(error)
+            print(type(error))
+            
     def registerformverification(username_value,user_email,locator,drivers):
        
         # in this we can check only two field validation, username and user email, so need to check this two only
@@ -166,7 +165,7 @@ class validate:
             return 0, "no error is found"
         else: 
             return 1,error_msg
-    def redirection_validation(expected_url,drivers):
+    def redirection_validation(drivers,expected_url):
         redirected_url = drivers.current_url
         if redirected_url == expected_url:
             print("it redirects properly, the redirection works properly")

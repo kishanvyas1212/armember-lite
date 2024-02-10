@@ -1,14 +1,14 @@
 
-from features.wp_login import setup, validate
+from features.wp_login import setup, validate,login
 from features.wp_login import driver_initlise
 from time import sleep
-url = "http://localhost/test_lite1"
+url = "http://localhost/test_lite1/"
 register_data = {
-    "username": "armember21",
-    "first_name" :"armember21",
-    "lastname_name" : "armember21",
-    "user_email":"armember21@gmail.com",
-    "user_pass":"armember21",
+    "username": "armember22",
+    "first_name" :"armember22",
+    "lastname_name" : "armember22",
+    "user_email":"armember22@gmail.com",
+    "user_pass":"armember22",
     "error" : "arm-df__fc--validation__wrap",
     "locator": ["NAME","NAME","NAME","NAME","NAME","NAME"],
     "locatorpath":["user_login","first_name","last_name","user_email","user_pass","armFormSubmitBtn"],
@@ -24,11 +24,22 @@ register_data = {
     "bank_identified":["name","name","name","name"],
     "end_point":"setup"
 } 
+
+
+login_data = {
+    "username":"armember21",
+    "password" : "armember2",
+    "end_point" : "login"
+}
 # register = setup.register(register_data,0)
+expected_url = "http://localhost/test_lite1/edit_profile/"
 driver = driver_initlise()
-signup = setup.setup_with_new(register_data,driver,url)
-print(signup)
-validate.verifyuser(signup,register_data,driver)
+# signup = setup.setup_with_new(register_data,driver,url)
+# print(signup)
+# validate.verifyuser(signup,register_data,driver)
+login_member = login.login_with_armember(driver,login_data,url)
+validate.verifyuser(driver,login_member,login_data)
+# validate.redirection_validation(driver,expected_url)
 
 sleep(10)
 driver.quit()
