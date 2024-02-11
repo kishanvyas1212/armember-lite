@@ -1,0 +1,11 @@
+﻿id,Test_case,Action,Expected ressult,actual result,status,user_data,url,Error_Message,Action_id
+1,Test that user can not login with wrong credentails,login with wrong user name,It must gives username is not valid,tt,te,"{
+    ""username"":""armember211"",
+    ""password"" : ""armember21"",
+    ""end_point"" : ""login""
+}",http://localhost/test_lite1/,The username you entered is invalid.,1
+2,Test that user can not login with wrong credentails,Login with wrong password,It must gives password is not correct ,,,"{
+    ""username"":""armember21"",
+    ""password"" : ""armember2"",
+    ""end_point"" : ""login""
+}",http://localhost/test_lite1/,The password you entered is invalid.,1
