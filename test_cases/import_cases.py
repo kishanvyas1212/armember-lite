@@ -66,4 +66,5 @@ def run_test_cases():
         data_dict = json.loads(json_string)
         # print(column_lists["url"][i] + user_data[i]["end_point"] )
         status = actions.action_identifier(Action_id[i],data_dict,i,column_lists["url"][i],column_lists["Error_Message"][i])
+        print('itereation is over '+ str(i))
 

@@ -15,3 +15,13 @@ data = {
     "bank_locator": ["bank_transfer[transaction_id]","bank_transfer[bank_name]","bank_transfer[account_name]","bank_transfer[additional_info]" ],
     "bank_identified":["name","name","name","name"]
 }
+
+
+change_password = {
+    
+    "user pass" : "test_234",
+    "repeat pass": "test_234",
+    "locator" : ["Name", "Name","Name"],
+    "locatorpath":["user_pass","repeat_pass","armFormSubmitBtn"],
+    "action" : ["send_keys","send_keys","click"]
+}

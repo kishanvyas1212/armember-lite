@@ -3,7 +3,7 @@
     ""username"":""armember211"",
     ""password"" : ""armember21"",
     ""end_point"" : ""login""
-}",http://localhost/test_lite1/,The username you entered is invalid.,1
+}",http://localhost/test_lite1/,No such user exists in the system.,1
 2,Test that user can not login with wrong credentails,Login with wrong password,It must gives password is not correct ,,,"{
     ""username"":""armember21"",
     ""password"" : ""armember2"",
